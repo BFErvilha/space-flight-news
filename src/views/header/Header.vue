@@ -31,7 +31,7 @@
   </div>
 </template>
 <script>
-import LogoSpace from './LogoSpace'
+import LogoSpace from '@/components/header/LogoSpace.vue'
 
 
 export default {

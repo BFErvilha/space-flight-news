@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Header from '@/components/header/Header.vue'
-import Body from '@/components/body/Body.vue'
+import Header from './header/Header.vue'
+import Body from './body/Body.vue'
 // @ is an alias to /src
 
 export default {

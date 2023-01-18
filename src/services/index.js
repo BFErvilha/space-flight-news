@@ -4,3 +4,7 @@ const api = 'https://api.spaceflightnewsapi.net/v3/';
 export const getArticles = () => {
   return axios.get(`${api}articles?_limit=10`);
 };
+
+export const getArticleById = (id) => {
+  return axios.get(`${api}articles/${id}`);
+};

@@ -3,3 +3,98 @@
 // #1e2022
 // #302e53
 // #d07017
+
+* {
+  font-family: 'Roboto Condensed';
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #1e2022; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #302e53; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d07017; 
+}
+
+.article-card{
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto;
+  min-height: 350px;
+  box-sizing: border-box;
+
+  @media (max-width: 425px) {
+    max-width: 100%;
+  }
+
+  .article-photo{
+    img{
+      object-fit: cover;
+      height: 300px;
+    }
+  }
+
+  .reverse-row{
+    flex-direction: row-reverse;
+  }
+  
+  .title{
+    font-size: 20px;
+    font-family: 'Roboto Condensed';
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .date-tag{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px auto;
+
+    .date{
+      font-size: 13px;
+    }
+
+    .tag{
+      font-size: 10px;
+      background-color: #302e53;
+      color: #d07017;
+      padding: 5px 10px;
+      border: none;
+      border-radius: .375rem
+
+    }
+
+  }
+  .text{
+    margin-top: 2rem;
+    text-align: left;
+  }
+
+  .card-button{
+    button{
+      background-color: #d07017;
+      color: #fff;
+      border-color: #d07017;
+
+      &:hover{
+        background-color: #1e2022;
+        color: #d07017;
+        border-color: #1e2022;
+      }
+    }
+  }
+}
