@@ -6,10 +6,10 @@
         lg="3"
       >
       <b-input-group>
-        <b-form-input type="text"/>
+        <b-form-input type="text" v-model="searchTerm"/>
 
         <b-input-group-append>
-          <b-button variant="outline-secondary">Button</b-button>
+          <b-button variant="outline-secondary" @click="getSeatch()">Button</b-button>
         </b-input-group-append>
       </b-input-group>
       </b-col>
@@ -45,13 +45,20 @@ export default {
   data() {
     return {
       selectedFilter: 0,
+      searchTerm: '',
       filters: [
         { id: 0, label: 'Sort' },
         { id: 1, label: 'Mais Antigas' },
         { id: 2, label: 'Mais Novas' },
       ]
     }
+  },
+  methods: {
+    getSeatch(){
+      this.$emit('search', this.searchTerm)
+    }
   }
+
 }
 
 </script>
