@@ -1,6 +1,6 @@
 # Space Flight News
 
-Projeto com foco em realizar consultas e tratar resultado da utilizando a API [SpaceFlightNews](https://spaceflightnewsapi.net/)
+Nesse desafio você deverá desenvolver uma aplicação web para consumir as informações da API [Space Flight News](https://spaceflightnewsapi.net/), uma API pública com informações relacionadas a voos espaciais.
 
 ### Challenge
 
