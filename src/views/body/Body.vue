@@ -95,8 +95,6 @@ export default {
   methods:{
     async handleData(){
       this.loading = true
-      console.log(this.filters.searchTerm)
-      console.log(this.filters.selectedOption)
       let request = {
         counter: this.articlesCounter,
       }
