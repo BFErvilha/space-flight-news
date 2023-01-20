@@ -2,6 +2,8 @@
 
 Um desafio para uma aplicação web para consumir as informações da API [Space Flight News](https://spaceflightnewsapi.net/), uma API pública com informações relacionadas a voos espaciais.
 
+[Demo](https://space-flight-news-6az9w2jd9-bfervilha.vercel.app/)
+
 ### Challenge
 
 This is a challenge by [Coodesh](https://coodesh.com/).
