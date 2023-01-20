@@ -1,54 +1,62 @@
 <template>
   <div>
-    <b-card 
-      no-body 
-      class="overflow-hidden article-card"
+    <b-overlay
+      :show="isLoading"
+      rounded
+      spinner-small
+      spinner-variant="warning"
+      class="d-inline-block loading-box"
     >
-      <b-row
-        no-gutters
-        :class="articleIndex % 2 != 0 ? 'reverse-row': ''"
-        class="p-4"
+      <b-card 
+        no-body 
+        class="overflow-hidden article-card"
       >
-        <b-col md="6">
-          <div class="article-photo">
-            <b-card-img :src="article.imageUrl" alt="Image" class="rounded-2"></b-card-img>
+        <b-row
+          no-gutters
+          :class="articleIndex % 2 != 0 ? 'reverse-row': ''"
+          class="p-4"
+        >
+          <b-col md="6">
+            <div class="article-photo">
+              <b-card-img :src="article.imageUrl" alt="Image" class="rounded-2"></b-card-img>
+            </div>
+          </b-col>
+          <b-col md="6">
+            <b-card-body>
+              <b-card-text>
+                <h2 class="title">
+                  {{ article.title }}
+                </h2>
+                <div class="date-tag">
+                  <div class="date">{{ article.publishedAt | formatDate}}</div>
+                    <div class="tag">{{ article.newsSite }}</div>
+                </div>
+                <p class="text">
+                  {{ article.summary }}
+                </p>
+                <div class="card-button">
+                  <b-button @click="openModal(article.id)">
+                    Ver Mais
+                  </b-button>
+                </div>
+              </b-card-text>
+            </b-card-body>
+          </b-col>
+        </b-row>
+        <b-modal 
+          hide-header
+          hide-footer
+          centered
+          :id="`modal-${article.id}`"
+          size="lg"
+        >
+          <div class="close-modal">
+            <b-icon icon="x-lg" @click="closeModal(article.id)"></b-icon>
           </div>
-        </b-col>
-        <b-col md="6">
-          <b-card-body>
-            <b-card-text>
-              <h2 class="title">
-                {{ article.title }}
-              </h2>
-              <div class="date-tag">
-                <div class="date">{{ article.publishedAt | formatDate}}</div>
-                  <div class="tag">{{ article.newsSite }}</div>
-              </div>
-              <p class="text">
-                {{ article.summary }}
-              </p>
-              <div class="card-button">
-                <b-button @click="openModal(article.id)">
-                  Ver Mais
-                </b-button>
-              </div>
-            </b-card-text>
-          </b-card-body>
-        </b-col>
-      </b-row>
-      <b-modal 
-        hide-header
-        hide-footer
-        centered
-        :id="`modal-${article.id}`"
-        size="lg"
-      >
-        <div class="close-modal">
-          <b-icon icon="x-lg" @click="closeModal(article.id)"></b-icon>
-        </div>
-        <ModalContent :id="article.id"/>
-      </b-modal>
-    </b-card>
+          <ModalContent :id="article.id"/>
+        </b-modal>
+      </b-card>
+    </b-overlay>
   </div>
 </template>
 <script>
@@ -62,7 +70,8 @@ export default {
   props:{
     article: { type: Object, default: () => {} },
     cardStyle: {type: Boolean, default: false},
-    articleIndex: {type: Number, required: true, default: 0}
+    articleIndex: {type: Number, required: true, default: 0},
+    isLoading: {type: Boolean, default: true},
   },
   methods:{
     openModal(id){
@@ -84,8 +93,7 @@ export default {
       return `${day}/${month}/${year}`
     }
   },
-  created(){
-  }
+
 }
 </script>
 <style lang="scss" scoped>
@@ -171,5 +179,15 @@ export default {
           color: #1e2022
         }
       }
+</style>
+<style lang="scss">
+.loading-box{
+
+  .b-overlay{
+    height: 90%!important;
+    margin-top: 20px!important;
+    background-color: rgba(208, 112, 23, 0.7);
+  }
+}  
 </style>
 

@@ -5,13 +5,10 @@
       <b-col
         lg="3"
       >
-      <b-input-group>
-        <b-form-input type="text" v-model="searchTerm"/>
-
-        <b-input-group-append>
-          <b-button variant="outline-secondary" @click="getSeatch()">Button</b-button>
-        </b-input-group-append>
-      </b-input-group>
+        <b-form-input type="text" v-model="searchTerm" placeholder="Pesquisar"/>
+        <b-button class="icon-form" @click="getSearch()">
+          <b-icon icon="search"></b-icon>
+        </b-button>
       </b-col>
       <b-col
         lg="2"
@@ -21,6 +18,8 @@
             v-model="selectedFilter"
             :options="filters"
             :reduce="(filter) => filter.id"
+            @input="getFilter()"
+            :clearable="false"
           />
         </b-form-group>
       </b-col>
@@ -32,6 +31,7 @@
 </template>
 <script>
 import LogoSpace from '@/components/header/LogoSpace.vue'
+import { mapMutations } from 'vuex'
 
 
 export default {
@@ -44,18 +44,30 @@ export default {
   },
   data() {
     return {
-      selectedFilter: 0,
+      selectedFilter: 2,
       searchTerm: '',
       filters: [
-        { id: 0, label: 'Sort' },
-        { id: 1, label: 'Mais Antigas' },
         { id: 2, label: 'Mais Novas' },
+        { id: 1, label: 'Mais Antigas' },
       ]
     }
   },
+  watch: {
+    searchTerm: {
+      handler: function (val){
+        if(val === ''){
+          this.$store.commit('setSearch', null)
+        }
+      }
+    }
+  },
   methods: {
-    getSeatch(){
-      this.$emit('search', this.searchTerm)
+    ...mapMutations(['setSearch', 'setFilter']),
+    getSearch(){
+      this.setSearch(this.searchTerm)
+    },
+    getFilter(){
+      this.setFilter(this.selectedFilter)
     }
   }
 
@@ -71,5 +83,20 @@ export default {
     background: url('../../../public/img/bg/bg.jpg');
     background-size: cover;
     background-position: center;
+  }
+  .icon-form{
+    position: relative;
+    top: -34px;
+    right: -44%;
+    background-color: #302e53;
+    width: 30px;
+    height: 30px;
+    padding: 4px 5px;
+    border-radius: 0.375rem;
+    z-index: 1;
+
+    svg{
+      color: white
+    }
   }
 </style>

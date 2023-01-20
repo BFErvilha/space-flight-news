@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header @search="getSearch($event)"/>
-    <Body :search-term="search"/>
+    <Header />
+    <Body />
   </div>
 </template>
 
@@ -17,15 +17,5 @@ export default {
     Header,
     Body
   },
-  data(){
-    return {
-      search: '',
-    }
-  },
-  methods: {
-    getSearch(search){
-      this.search = search
-    }
-  }
 }
 </script>
