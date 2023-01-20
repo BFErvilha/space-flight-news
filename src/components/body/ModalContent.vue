@@ -50,7 +50,7 @@ export default {
     async getArticleInfo(id){
       await getArticleById(id).then((response) => {
         this.article = response.data
-        console.log(response.data)
+        // console.log(response.data)
       })
     },
     goToWebSite(url){

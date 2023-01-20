@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header />
-    <Body />
+    <Header @setFilter="getFilter($event)" />
+    <Body :filterOptions="filter" :searchOption="search"/>
   </div>
 </template>
 
@@ -17,5 +17,22 @@ export default {
     Header,
     Body
   },
+  data(){
+    return {
+      filter: null,
+      search: null,
+    }
+  },
+  methods:{
+    getFilter(filter){
+      this.filter = filter
+    },
+  },
+  created(){
+    if(this.$route.query){
+      this.search = this.$route.query.search
+      this.filter = this.$route.query.id
+    } 
+  }
 }
 </script>

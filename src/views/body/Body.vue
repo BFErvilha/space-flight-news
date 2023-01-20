@@ -1,9 +1,6 @@
 <template>
   <div class="body-content">
       <b-container v-if="articles.length > 0">
-        <div style="background-color: red; color: blue">
-            {{ Search }} : {{ Filter }}
-        </div>
         <SpaceCard 
           v-for=" (article, index) in articles"
           :key="index"
@@ -53,20 +50,31 @@ export default {
   // eslint-disable-next-line
     Search: function (newVal){
       if(newVal){
-        console.log(newVal);
         this.filters.searchTerm = newVal;
         this.handleData()
       }
     },
-    
-    Filter: function (newVal){
-      if(newVal){
-        this.filters.selectedOption = newVal;
-        this.handleData()
-      }
+    'searchOption':{
+        handler: function (newVal) {
+          this.filters.searchTerm = newVal;
+          this.$nextTick(() => {
+            this.handleData()
+          })
+        }
     },
-
+    'filterOptions':{
+        handler: function (newVal) {
+          this.filters.selectedOption = newVal;
+          this.$nextTick(() => {
+            this.handleData()
+          })
+        }
+    }
   },
+  props:{
+    filterOptions:{ type: Number, default: 2},
+    searchOption:{ type: String, default: ''}
+  },  
   data() {
     return {
       articles: {},
@@ -82,21 +90,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['Filter', 'Search'])
+    ...mapGetters(['Search'])
   },
   methods:{
     async handleData(){
       this.loading = true
-      if(localStorage.getItem('search')){
-        this.searchStorage = localStorage.getItem('search')
-      }
-      if(localStorage.getItem('filter')){
-        this.searchStorage = localStorage.getItem('filter')
-      }
+      console.log(this.filters.searchTerm)
+      console.log(this.filters.selectedOption)
       let request = {
-        counter: this.articlesCounter
+        counter: this.articlesCounter,
       }
-      if( this.filters.searchTerm){
+      if(this.filters.searchTerm){
         request.search = this.filters.searchTerm
       }
       if(this.filters.selectedOption){
@@ -105,13 +109,13 @@ export default {
 
       await getArticles(request).then((response) => {
         this.articles = response.data
-        localStorage.removeItem('search')
-        localStorage.removeItem('filter')
-        this.$router.push({query: {search: request.search, filter: request.filter}})
+        this.$router.replace({query: {search: request.search, filter: request.filter}})
         this.loading = false
       }).catch((error) => {
         console.log(error)
       })
+
+      
     },
     moreContent(){
       this.articlesCounter += 10
@@ -119,10 +123,6 @@ export default {
     }
   },
   created(){
-    if(this.$route.query){
-      localStorage.setItem('search', this.$route.query.search)
-      localStorage.setItem('filter', this.$route.query.filter)
-    }
     this.handleData()
   }
 }

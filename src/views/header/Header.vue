@@ -62,12 +62,12 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setSearch', 'setFilter']),
+    ...mapMutations(['setSearch']),
     getSearch(){
       this.setSearch(this.searchTerm)
     },
     getFilter(){
-      this.setFilter(this.selectedFilter)
+      this.$emit('setFilter', this.selectedFilter)
     }
   }
 
