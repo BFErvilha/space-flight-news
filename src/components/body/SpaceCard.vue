@@ -25,7 +25,7 @@
             <b-card-body>
               <b-card-text>
                 <h2 class="title">
-                  {{ article.title }}
+                  {{ article.title | formatTitle }}
                 </h2>
                 <div class="date-tag">
                   <div class="date">{{ article.publishedAt | formatDate}}</div>
@@ -91,6 +91,9 @@ export default {
       month = (month.length == 1) ? '0'+month : month
 
       return `${day}/${month}/${year}`
+    },
+    formatTitle(value){
+      return value.toUpperCase()
     }
   },
 
